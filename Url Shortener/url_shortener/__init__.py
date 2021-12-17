@@ -1,6 +1,6 @@
 from flask import Flask, app
 
-from url_shortener.api import initialize_routes
+from .api import initialize_routes
 from .models import db
 from .routes import views
 from flask_restful import Api

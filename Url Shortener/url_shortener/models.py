@@ -11,6 +11,7 @@ class Link(db.Model):
     short_url = db.Column(db.String(20), unique=True)
     visits = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
     def __init__(self, **kwargs):
@@ -29,3 +30,9 @@ class Link(db.Model):
         return short_url
     
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
+    links = db.relationship('Link')
