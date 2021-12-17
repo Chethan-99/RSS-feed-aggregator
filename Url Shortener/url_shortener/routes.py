@@ -43,6 +43,10 @@ def stats():
 def login():
     return render_template('login.html')
 
+@views.route('/register')
+def register():
+    return render_template('register.html')
+
 @views.route('/add', methods = ['GET','POST'])
 def add():
     message = ''
@@ -62,12 +66,12 @@ def add():
                     i += 1
         if n:
             str += '&n=' + n
-        print(str)
+       
         link = Link(original_url=str)
         db.session.add(link)
         db.session.commit()
         result = Link.query.filter_by(original_url=str).first_or_404()
-        print(result)
+        
         return render_template('link_added.html', new_link=result.short_url, original_url=link.original_url)
         flash('Note added', category='success')
     return render_template('url_add.html')
