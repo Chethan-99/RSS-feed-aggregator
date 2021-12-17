@@ -54,25 +54,27 @@ def add():
         full_url = request.form.getlist('field[]')
         n = request.form['limit']
         i = 1
-        num = []
         str = 'http://127.0.0.1:8000/rss?f='
-        
+        str1 = ''
         for value in full_url:
             if value != '':
                 if i == 1:
                     str += value 
                     i += 1
+                    str1 = value
                 else:
                     str +='&f=' + value
                     i += 1
+            else:
+                flash('Input field cannot be empty', category='error')
+                return render_template('url_add.html')
         if n:
             str += '&n=' + n
+    
+        link = Link(original_url=str)
+        db.session.add(link)
+        db.session.commit()
+        result = Link.query.filter_by(original_url=str).first_or_404()
         
-        if full_url:
-            print(full_url)
-        else:
-            print('No')
-            return 'error'
-   
-        flash('Note added', category='success')
+        return render_template('link_added.html', new_link=result.short_url, original_url=link.original_url)
     return render_template('url_add.html')

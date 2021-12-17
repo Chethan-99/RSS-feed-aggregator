@@ -38,6 +38,29 @@
       <h1>Blank Page</h1>
     
     </div>End Page Title -->
+    
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+    {% for category, message in messages %} 
+    {% if category == 'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} 
+    {% endfor %} 
+    {% endif %} 
+    {% endwith %}
+
 
     <section class="section">
       <div class="row">
@@ -52,7 +75,7 @@
                     <div class="form-group form-row">
                         <div class="col-8">
         
-                         <input type="text" name="field[]" value="" class="form-control input" id="exampleFormControlInput1" placeholder="Add Feed">
+                         <input type="text" name="field[]" value="{{full_url}}" class="form-control input" id="exampleFormControlInput1" placeholder="Add Feed">
                         </div>
                         <div class="col-2">
                          <a href="javascript:void(0);" class="add-input btn btn-primary mx-3" title="Add input">Add<i class="fa fa-plus-square ms-2"></i></a>
@@ -62,7 +85,7 @@
                 <div class="other-input-wrapper" style="margin-top: 10px;">
                     <label for="limit">Inputs per feed(Optional)</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="limit">
+                        <input type="text" value="{{n}}" class="form-control" name="limit">
                     </div>
                 </div>
                 <div>
