@@ -19,13 +19,23 @@
         <ul class="navbar-nav mr-auto">
           
         </ul>
-        <ul class="navbar-nav">
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/add">{{user.first_name}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% else %}
           <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
           </li>
           <li class="nav-item ">
               <a class="nav-link" href="/register">Register</a>
           </li>
+          {% endif %}
       </ul>
       </div>
     </nav>
@@ -45,7 +55,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Key Features</h3>
+              <p class="card-title" style="font-size: 1.5rem;">Key Features</p>
               <ul>
                 <li>Feature 1</li>
                 <li>Feature 2</li>
@@ -63,7 +73,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title" style="font-size: larger;">Get your feed mixed here.</h3>
+              <p class="card-title" style="font-size: 1.5rem;">Get your feed mixed here!</p>
               <div class=" text-center">
                 <h4 class="mb-3">Are you new here?</h4>
                 <h5>Please register here <a href="/register" class="btn btn-primary mx-3">REGISTER<i class="fa fa-user-plus ms-2"></i></a></h5>

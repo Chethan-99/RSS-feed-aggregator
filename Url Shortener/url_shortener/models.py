@@ -2,6 +2,7 @@ import string
 from datetime import datetime
 from random import choices
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
@@ -30,7 +31,7 @@ class Link(db.Model):
         return short_url
     
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
