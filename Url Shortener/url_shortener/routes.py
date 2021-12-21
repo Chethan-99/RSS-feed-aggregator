@@ -116,7 +116,7 @@ def add():
         full_url = request.form.getlist('field[]')
         n = request.form['limit']
         i = 1
-        str = 'http://127.0.0.1:8000/rss?f='
+        str = 'https://feed-mixer.herokuapp.com//rss?f='
         str1 = ''
         for value in full_url:
             if value != '':
@@ -128,7 +128,7 @@ def add():
                     str +='&f=' + value
                     i += 1
             else:
-                flash('Input field cannot be empty', category='error')
+                flash('URL field cannot be empty', category='error')
                 return render_template('url_add.html',user=current_user,links=links)
         if n:
             str += '&n=' + n
@@ -139,6 +139,6 @@ def add():
         result = Link.query.filter_by(original_url=str).first_or_404()
         links = Link.query.filter_by(user_id=current_user.id).all()
         
-        return render_template('url_add.html',links=links,user=current_user)
+        return render_template('link_added.html',original_url=result.original_url,new_link=result.short_url,user=current_user)
     links = Link.query.filter_by(user_id=current_user.id).all()
     return render_template('url_add.html',user=current_user,links=links)
